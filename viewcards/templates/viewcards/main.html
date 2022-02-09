@@ -1,0 +1,204 @@
+<!doctype html>
+  <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Карточки со словами</title>
+  </head>
+  <body>
+    <style type="text/css">
+      body {
+        background-color: rgb(226, 232, 240);
+      }
+      label {
+/*-webkit-perspective: 1000px;
+perspective: 1000px;*/
+-webkit-transform-style: preserve-3d;
+transform-style: preserve-3d;
+display: block;
+width: 300px;
+height: 200px;
+position: absolute;
+left: 50%;
+top: 50%;
+-webkit-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+cursor: pointer;
+}
+
+.card {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 600ms;
+  transition: all 600ms;
+  z-index: 20;
+}
+
+.card div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #FFF;
+  text-align: center;
+  padding-top: 75px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 2px;
+}
+
+.card .back {
+  background: #222;
+  color: #FFF;
+  -webkit-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+}
+
+label:hover .card {
+  -webkit-transform: rotateX(20deg);
+  transform: rotateX(20deg);
+  box-shadow: 0 20px 20px rgba(50, 50, 50, 0.2);
+}
+
+input {
+  display: none;
+}
+
+:checked + .card {
+  transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
+}
+
+label:hover :checked + .card {
+  transform: rotateX(160deg);
+  -webkit-transform: rotateX(160deg);
+  box-shadow: 0 20px 20px rgba(255, 255, 255, 0.2);
+}
+.card {
+  font-size: 25px;
+}
+</style>
+<script
+src="https://code.jquery.com/jquery-3.6.0.min.js"
+integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+crossorigin="anonymous"></script>
+<script type="text/javascript">
+  let tmp = 0;
+  let wordsOrigin = ["Спелый ","Бардачок ","Олень ","Здание ","Хомяк ","Внутри ","Подросток ","Памятник ","Сауна ","Футляр ","Заповедник ","Редкие животные ","Кукла ","Плюшевые игрушки ","Подоконник ","Ножницы ","Вешалка ","Щенок ","Купюра ","Берёза ","Сосна ","Ель ","Новогодняя ёлка ","Аквариум ","Акула ","Берег ","Работа по дому ","Домашнее задание ","Клетка ","Крыша ","Грязный ","Скамейка ","Форточка ","Тигр ","Лев ","Львица ","Веник ","Сарай ","Теплица ","Огород ","Провода ","Сад ","Детский сад ","Насекомое ","Паук ","Гантели ","Сорняки ","Пенёк ","Монета ","Копилка ","Комод ","Навес ","Плитка шоколада ","Бутылка шампанского/сока ","Бутылка сухого вина ","Юг ","Север ","Запад ","Восток ","Снежинка ","Снежки ","Снеговик ","Простудиться ","Душно ","Прохладно ","Скользко ","Теплеть ","Развестись ","Выйти замуж ","Растение, сажать, саженец ","Закат ","Восход ","Необходимо ","Потрясающий ","Соседи ","Креветки ","Непослушный, капризный ","Беглый ","Циркуль ","Быть испорченным, разрушенным ","Исчезнуть ","Буфет, шкаф ","Скромный ","Шуба ","Дублёнка ","Ночнушка ","Цвести ","Портативный ","Делиться ","Сравнивать ","Цены ","Переехать, передвигаться ","Метро ","Жених ","Невеста ","Работающий не по найму ","Прачечная ","Занавески ","Племя ","Бревно ","Грязь, ил ","Глина ","Быть ответственным за… ","Судебный процесс ","Субтитры ","Влюбиться ","Разлюбить ","Детство ","Банковский счёт ","Мандарины ","Черешня ","Небоскрёбы ","Незнакомец ","Иностранцы ","Способности ","Возможность ","Означать, символизировать ","Выносить мусор ","Научная фантастика ","Свадьба ","Обручальное кольцо ","Быть обессиленным, истощённым ","Рецепт ","Бедро ","Голень ","Достопримечательности ","Свобода ","Мечеть ","Собор ","За՛мок ","Дворец ","Церковь ","Американские горки ","Колесо обозрения ","Веранда, крыльцо ","Пейзаж ","Несчастный случай, авария ","Особенно ","Быть инвалидом ","Развивать, разрабатывать ","Угощайся","Навсегда","Тысячелетие","Век"]
+  {% comment %} let words  = wordsOrigin.sort((a, b) => 0.5 - Math.random()); {% endcomment %}
+  let words = wordsOrigin;
+  let endtmp = words.length;
+  let translations = new Map([["Спелый "," Ripe"],["Бардачок "," Glove compartment"],["Олень "," Deer"],["Здание "," Building"],["Хомяк "," Hamster"],["Внутри "," Inside"],["Подросток "," Adolescent, teenager"],["Памятник "," Monument"],["Сауна "," Sauna"],["Футляр "," Case"],["Заповедник ","  Reserve"],["Редкие животные "," Rare animals"],["Кукла "," Doll"],["Плюшевые игрушки "," Plush toys"],["Подоконник ","windows sill"],["Ножницы "," Scissors"],["Вешалка "," Hanger"],["Щенок "," Puppy"],["Купюра "," Bill"],["Берёза ","birch-tree"],["Сосна ","pine-tree"],["Ель ","fir-tree"],["Новогодняя ёлка "," Christmas tree"],["Аквариум "," Aquarium"],["Акула "," Shark"],["Берег "," Shore, coast"],["Работа по дому ","household shores"],["Домашнее задание ","home assignement"],["Клетка "," Cage"],["Крыша "," Roof"],["Грязный "," Dirty"],["Скамейка "," Bench"],["Форточка ","window leaf"],["Тигр "," Tiger"],["Лев "," Lion"],["Львица "," Lioness"],["Веник "," Broom"],["Сарай "," Barn"],["Теплица "," Greenhouse"],["Огород "," Kitchen garden, vegetable garden"],["Провода "," Wires"],["Сад "," Garden"],["Детский сад "," Kindergarten"],["Насекомое "," Insect"],["Паук "," Spider"],["Гантели "," Dumbbells"],["Сорняки "," Weeds"],["Пенёк "," Stump"],["Монета "," Coin"],["Копилка "," Money box, piggy bank"],["Комод "," Dresser, chest of drawers"],["Навес "," Shed"],["Плитка шоколада "," A bar of chocolate"],["Бутылка шампанского/сока "," A bottle of champagne/juice"],["Бутылка сухого вина "," A bottle of dry vine"],["Юг "," South"],["Север "," North"],["Запад "," West"],["Восток "," East"],["Снежинка "," Snowflake"],["Снежки "," Snowballs"],["Снеговик "," Snowman"],["Простудиться "," Catch a cold"],["Душно "," It is stuffy"],["Прохладно "," It is cool"],["Скользко "," It is slippery"],["Теплеть "," Get warm"],["Развестись "," Get divorced"],["Выйти замуж "," Get married"],["Растение, сажать, саженец "," Plant"],["Закат "," Sunset"],["Восход "," Sunrise"],["Необходимо "," It is necessary"],["Потрясающий "," Terrific"],["Соседи "," Neighbours"],["Креветки "," Shrimps"],["Непослушный, капризный "," Naughty"],["Беглый "," Fluent"],["Циркуль "," Dividers"],["Быть испорченным, разрушенным "," To be ruined"],["Исчезнуть "," To be gone"],["Буфет, шкаф "," Cupboard"],["Скромный "," Modest"],["Шуба "," Fur coat"],["Дублёнка ","sheep-skin-coat"],["Ночнушка "," Nighty"],["Цвести "," Bloom"],["Портативный "," Portable"],["Делиться "," Share"],["Сравнивать "," Compare"],["Цены "," Prices"],["Переехать, передвигаться "," Move"],["Метро "," Subway, underground, metro"],["Жених "," Groom"],["Невеста "," Bride, fiancée"],["Работающий не по найму ","self-employd"],["Прачечная "," Laundry"],["Занавески "," Curtains"],["Племя "," Tribe"],["Бревно "," Log"],["Грязь, ил "," Mud, dirt"],["Глина "," Clay"],["Быть ответственным за… "," To be in charge of"],["Судебный процесс "," Trial"],["Субтитры "," Subtitles"],["Влюбиться "," Fall in love (with)"],["Разлюбить "," Fall out of love (with)"],["Детство "," Childhood"],["Банковский счёт "," Bank account"],["Мандарины "," Tangerines"],["Черешня "," Sweet cherry"],["Небоскрёбы "," Skyscrapers"],["Незнакомец "," Stranger"],["Иностранцы "," Foreigners"],["Способности "," Abilities"],["Возможность "," Opportunity, chance"],["Означать, символизировать "," Represent"],["Выносить мусор "," Take out the trash"],["Научная фантастика "," Science"],["Свадьба "," Wedding"],["Обручальное кольцо "," A wedding ring"],["Быть обессиленным, истощённым "," To be exhausted"],["Рецепт "," Prescription, recipe"],["Бедро "," Thigh"],["Голень "," Calf"],["Достопримечательности "," Attraction, sights"],["Свобода "," Liberty, freedom"],["Мечеть "," Mosque"],["Собор "," Cathedral"],["За՛мок "," Castle"],["Дворец "," Palace"],["Церковь "," Church"],["Американские горки "," Roller – coaster"],["Колесо обозрения "," The Ferris wheel"],["Веранда, крыльцо "," Porch"],["Пейзаж "," Landscape"],["Несчастный случай, авария "," Accident"],["Особенно "," Especially"],["Быть инвалидом "," To be disabled"],["Развивать, разрабатывать "," develop "],["Угощайся","help yourself!"],["Навсегда","forever"],["Тысячелетие","millennium"],["Век","century"]]);
+  function changeWord(){
+    if($("#checkID").is(':checked')){
+     $( "#checkID" ).click();
+   }
+
+   let a = words[tmp];
+   $(".front").text(a);
+   setTimeout(
+    function() 
+    {
+      let b = translations.get(a);
+      $(".back").text(b);
+    }, 400);
+
+   if (tmp<endtmp-1){
+    tmp++;
+  }
+  else{
+    tmp=0
+  }
+  console.log(tmp);
+  console.log(endtmp);
+}
+function changeBack(){
+  if($("#checkID").is(':checked')){
+    $( "#checkID" ).click();
+  }
+  if (tmp>=2){
+    tmp = tmp-2
+  }
+  else{
+    tmp= endtmp+tmp-2
+  }
+  let a = words[tmp]
+   $(".front").text(a);
+   setTimeout(
+    function() 
+    {
+      let b = translations.get(a);
+      $(".back").text(b);
+    }, 400);
+
+    if (tmp<endtmp-1){
+      tmp++;
+    }
+    else{
+      tmp=0
+    }
+  console.log(tmp);
+  console.log(endtmp);
+}
+
+
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Карточки
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Из документа</a></li>
+            <li><a class="dropdown-item" href="#">138 страница</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class='container text-center'>
+    <h1>Карточки со словами</h1>
+   
+  </div>
+  <div class="container">
+    <label>
+      <input type="checkbox" id='checkID'  />
+      <div class="card">
+        <div class="front">Front</div>
+        <div class="back">Back</div>
+      </div>
+      <button type="button" class="btn btn-outline-dark mt-5" style='width: 18%;' onclick="changeBack();"><</button>
+      <button type="button" class="btn btn-outline-dark mt-5" style='width: 79%;' onclick="changeWord();">Next</button>
+    </label>
+
+  </div>
+  <div class="container">
+
+  </div>
+  
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

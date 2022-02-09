@@ -1,0 +1,1 @@
+web: gunicorn jubil.wsgi --log-file -
