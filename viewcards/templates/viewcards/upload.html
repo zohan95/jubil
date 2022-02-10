@@ -16,8 +16,20 @@
                     {{ field }}
                 </div>
             {% endfor %}
-            <input type="file" name="files"/>
             <br/>
+            <input type="file" name="files"/>
+            <br/><br/>
+            <select name='course'>
+                {% for i in course %}
+                <option>{{ i.course_jubil }}</option>
+                {% endfor %}
+            </select>
+            <select name='category'>
+                {% for i in category %}
+                <option>{{ i.words_category }}</option>
+                {% endfor %}
+            </select>
+            <br/>   
             <button type="submit" class="btn btn-success mt-3">Upload</button>
         </form>
     </div>

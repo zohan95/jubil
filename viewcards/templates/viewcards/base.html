@@ -26,28 +26,34 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        {% for key,value in catdict.items %}
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
-            
+            {% for i in courses %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Карточки
+                {{ key }} курс
               </a>
+              
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                {% if request.user.is_superuser %}
                 <li><a class="dropdown-item" href="{% url 'upload_url' %}">Upload</a></li>
-                <li><a class="dropdown-item" href="#">Из документа</a></li>
-                <li><a class="dropdown-item" href="#">138 страница</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                {% endif %}
+                {% for j in value %}
+                <li><a class="dropdown-item" href="{% url 'view_id_url' key j %}">{{ j }}</a></li>
+                {% endfor %}
               </ul>
+              {% endfor %}
             </li>
           </ul>
         </div>
+        {% endfor %}
       </div>
     </nav>
 {% block content %}
  {% endblock %} 
 
-
+   
 
 
     
