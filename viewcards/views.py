@@ -80,4 +80,4 @@ class ViewById(View):
         for i in tmp:
             tmp_dict.append([i.rus_word, i.end_word])
         tmp_words = [i.rus_word for i in tmp]
-        return render(request, 'viewcards/main.html', {'words':tmp_words,'translates':tmp_dict,'title':'Карточки из документа', 'courses': courses, 'categorys':categorys,'catdict':tmp2})
+        return render(request, 'viewcards/main.html', {'words':tmp_words,'translates':tmp_dict,'title':category, 'courses': courses, 'categorys':categorys,'catdict':tmp2})
