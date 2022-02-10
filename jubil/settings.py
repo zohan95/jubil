@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from distutils.log import debug
 import dj_database_url
 import django_heroku
 import os
@@ -29,7 +30,7 @@ SECRET_KEY = 'django-insecure-u2c9^z62t75d_k&23)wp%(af+8s69gf(=mqx*1qr(ul(^a8aw#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['yubil.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'viewcards'
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
 
 ROOT_URLCONF = 'jubil.urls'
 
@@ -74,10 +77,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'jubil.wsgi.application'
+# DATABASES=0
 
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # DATABASES = {
 #     'default': {

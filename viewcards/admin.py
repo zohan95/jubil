@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import *
+
+admin.site.register(CourseJubil)
+admin.site.register(WordsCategory)
+
+admin.site.register(WordsContainer)
