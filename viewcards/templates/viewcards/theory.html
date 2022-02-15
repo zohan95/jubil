@@ -5,6 +5,11 @@
 <div class='container'>
 
     <h3 class='text-center'>{{ theorybody.name }}</h3>
-    {{ theorybody.bodycontent|safe }}
+    <div class="card">
+        <div class="card-body">
+            {{ theorybody.bodycontent|safe }}
+        </div>
+      </div>
+    
 </div>
 {% endblock %}
