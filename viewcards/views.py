@@ -22,14 +22,27 @@ def mainmenu(request):
     courses = CourseJubil.objects.all()
     categorys = WordsCategory.objects.all()
     tmp = {}
+    theory = {}
     for i in courses:
         tmp1 = []
         tmp_obj = WordsCategory.objects.filter(course_jubil=i.id)
         tmp1 = [k.words_category for k in tmp_obj]
         #print(tmp1)
         tmp[i.course_jubil]=tmp1
+        tmp_obj = Theory.objects.filter(course_jubil=i.id)
+        if tmp_obj:
+            for k in tmp_obj:
+                theory[str(k.id)] = k.name
+    print(theory)
     #print(tmp)
-    return render(request, 'viewcards/base.html',{'title':'Карточки из документа', 'courses': courses, 'categorys':categorys,'catdict':tmp})
+    return render(request, 'viewcards/base.html',{'title':'Карточки из документа', 'courses': courses, 'categorys':categorys,'catdict':tmp,'theory':theory})
+
+
+class ShowTheory(View):
+    def get(self, request, pk):
+        body = Theory.objects.get(id=pk)
+        return render(request, 'viewcards/theory.html', {'theorybody':body})
+
 
 
 class Upload(View):

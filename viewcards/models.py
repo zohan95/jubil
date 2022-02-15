@@ -1,5 +1,11 @@
 from django.db import models
+from tinymce.models import HTMLField
 
+
+class Theory(models.Model):
+    name = models.CharField(max_length=511, help_text='Заголовок')
+    bodycontent = HTMLField()
+    course_jubil = models.ForeignKey('CourseJubil', on_delete=models.CASCADE)
 
 class WordsContainer(models.Model):
     rus_word = models.CharField(max_length=127, help_text='russian word')
