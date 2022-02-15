@@ -40,8 +40,22 @@ def mainmenu(request):
 
 class ShowTheory(View):
     def get(self, request, pk):
+        tmp2 = {}
+        theory = {}
+        courses = CourseJubil.objects.all()
+        for i in courses:
+            tmp1 = []
+            tmp_obj = WordsCategory.objects.filter(course_jubil=i.id)
+            tmp1 = [k.words_category for k in tmp_obj]
+            #print(tmp1)
+            tmp2[i.course_jubil]=tmp1
+            tmp_obj = Theory.objects.filter(course_jubil=i.id)
+            if tmp_obj: 
+                for k in tmp_obj:
+                    theory[str(k.id)] = k.name
         body = Theory.objects.get(id=pk)
-        return render(request, 'viewcards/theory.html', {'theorybody':body})
+        print(tmp2)
+        return render(request, 'viewcards/theory.html', {'theorybody':body,'catdict':tmp2,'theory':theory})
 
 
 
@@ -79,12 +93,17 @@ class ViewById(View):
         courses = CourseJubil.objects.all()
         categorys = WordsCategory.objects.all()
         tmp2 = {}
+        theory = {}
         for i in courses:
             tmp1 = []
             tmp_obj = WordsCategory.objects.filter(course_jubil=i.id)
             tmp1 = [k.words_category for k in tmp_obj]
             #print(tmp1)
             tmp2[i.course_jubil]=tmp1
+            tmp_obj = Theory.objects.filter(course_jubil=i.id)
+            if tmp_obj: 
+                for k in tmp_obj:
+                    theory[str(k.id)] = k.name
         #request.GET.get('course')
         print(category)
         lol = WordsCategory.objects.get(words_category=category)
@@ -92,5 +111,7 @@ class ViewById(View):
         tmp_dict = []
         for i in tmp:
             tmp_dict.append([i.rus_word, i.end_word])
+        
         tmp_words = [i.rus_word for i in tmp]
-        return render(request, 'viewcards/main.html', {'words':tmp_words,'translates':tmp_dict,'title':category, 'courses': courses, 'categorys':categorys,'catdict':tmp2})
+        
+        return render(request, 'viewcards/main.html', {'words':tmp_words,'translates':tmp_dict,'title':category, 'courses': courses, 'categorys':categorys,'catdict':tmp2,'theory':theory})
